@@ -9,6 +9,7 @@ jobs:
 
   release:
 
+    environment: docker
     name: Release
     runs-on: ubuntu-latest
 
