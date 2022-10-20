@@ -1,0 +1,26 @@
+---
+name: keepalive
+
+on:
+  schedule:
+    - cron: "55 23 * * 4"
+
+jobs:
+
+  keepalive:
+
+    name: Github Actions keepalive
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: check out the codebase
+        uses: actions/checkout@v2
+
+      - name: add keepalive commit
+        uses: gautamkrishnar/keepalive-workflow@master
+        with:
+          commit_message: "This is still breathing! (Keepalive commit)"
+          committer_username: "Jose Solis"
+          committer_email: "josesolisrosales@gmail.com"
+          auto_push: true
