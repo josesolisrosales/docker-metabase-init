@@ -1,4 +1,7 @@
 # docker-metabase-init
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/josesolisrosales/docker-metabase-init/release?style=flat-square)
+![Docker Pulls](https://img.shields.io/docker/pulls/josesolisrosales/metabase-init?style=flat-square)
+![Docker Image Version (latest by date)](https://img.shields.io/docker/v/josesolisrosales/metabase-init?style=flat-square)
 
 Docker image to be used as a sidecar container to initialize a metabase instance.
 
