@@ -49,6 +49,23 @@ def parseUrl(url):
         url = "http://" + url
         return url
 
+def testConnection(url, username, password):
+
+    json_data = {
+        "username": username,
+        "password": password
+    }
+
+    auth_request = requests.post(url + "/api/session", json=json_data)
+
+    if auth_request.status_code == 200:
+        print(f"Connection valid for user {username} with session id \"{auth_request.json()['id']}\". Exiting....")
+        sys.exit(0)
+    else:
+        try:
+            sys.exit(auth_request.json())
+        except requests.exceptions.JSONDecodeError:
+            sys.exit(auth_request.text)
 
 @retryWithBackoff()
 def main(arguments):
@@ -73,13 +90,14 @@ def main(arguments):
     setup_request = requests.post(base_url + "/api/setup", json=json_data)
 
     if setup_request.status_code == 200:
-        print("Metabase setup complete")
-        sys.exit(0)
+        print("Metabase setup complete, trying connection with provided credentials")
+        testConnection(base_url, arguments.setup_email, arguments.setup_password)
 
     if setup_request.status_code == 403:
         print(setup_request.text)
-        print("Ignore this message if this is expected")
-        sys.exit(0)
+        print("Ignore this message if this is expected, trying connection with provided credentials")
+        testConnection(base_url, arguments.setup_email, arguments.setup_password)
+
 
     try:
         sys.exit(setup_request.json())
