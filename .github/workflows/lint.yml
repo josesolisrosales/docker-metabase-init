@@ -1,5 +1,5 @@
 ---
-name: molecule
+name: lint
 
 on:
 
@@ -22,6 +22,6 @@ jobs:
     - name: lint
       uses: luke142367/Docker-Lint-Action@v1.0.0
       with:
-        target: Dockerfile
+        target: ./metabase/Dockerfile
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
